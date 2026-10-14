@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parity Labs — the trust layer for AI agents in production</title>
+<meta name="description" content="Verify AI agent actions before they ship: replay-tested changes, grounded reasoning, and human-approval-gated execution.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">◇</span>
+      Parity<span class="brand-accent">Labs</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#problem">Problem</a>
+      <a href="#pillars">Product</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://github.com/Jex2l/parity" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <a class="btn btn-ghost" href="#waitlist">Request access</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero shell">
+    <p class="eyebrow">Infrastructure for trustworthy AI agents</p>
+    <h1>The trust layer for<br><span class="accent">AI agents in production</span></h1>
+    <p class="lede">
+      AI agents write code, clean data, retrain models, and triage incidents —
+      mostly unsupervised. The one question nobody can answer today:
+      <strong>how do you know an agent's action is safe, and its reasoning is
+      true, before it's allowed to act?</strong> Parity Labs answers that.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#waitlist">Request access</a>
+      <a class="btn btn-secondary" href="https://github.com/Jex2l/parity" target="_blank" rel="noopener">
+        View the engine on GitHub
+      </a>
+    </div>
+    <div class="hero-proof">
+      <span class="proof-dot"></span>
+      Pillar 1 validated end-to-end on a real GitHub Actions run — 3 real bugs found and fixed, not a mockup.
+    </div>
+  </section>
+
+  <section class="band" id="problem">
+    <div class="shell">
+      <h2>Every team adopting agents hits the same wall</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-kicker">The honeymoon</div>
+          <p>An agent ships a PR, cleans a dataset, or proposes a fix. It looks
+          right. Nobody has time to verify it's actually right, every time.</p>
+        </div>
+        <div class="card">
+          <div class="card-kicker">The wall</div>
+          <p>Within months, something an agent shipped broke something nobody
+          caught — not because review failed, but because nothing was there
+          to catch it systematically.</p>
+        </div>
+        <div class="card">
+          <div class="card-kicker">The gap</div>
+          <p>Every team solves this with one-off glue code for their specific
+          case. There's no general infrastructure for "verify an agent's
+          action before it acts."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="pillars">
+    <div class="shell">
+      <h2>Three pillars, each proven independently before this pitch existed</h2>
+      <p class="section-lede">
+        Not a roadmap we hope to build — three working prototypes, each
+        solving one slice of the trust problem in a different domain,
+        combined into one platform.
+      </p>
+
+      <div class="pillars">
+        <article class="pillar">
+          <div class="pillar-head">
+            <span class="pillar-index">01</span>
+            <span class="status-badge status-shipped">Shipped</span>
+          </div>
+          <h3>Replay verification</h3>
+          <p class="pillar-question">"Is this <em>change</em> safe?"</p>
+          <p>Before any agent-proposed change ships, replay it against real
+          production traffic and see what actually changed — not what unit
+          tests happened to check.</p>
+          <p class="pillar-source">Powers: <code>parity-ci</code>, a drop-in
+          GitHub Action, validated on a real CI run.</p>
+        </article>
+
+        <article class="pillar">
+          <div class="pillar-head">
+            <span class="pillar-index">02</span>
+            <span class="status-badge status-progress">In progress</span>
+          </div>
+          <h3>Grounded reasoning</h3>
+          <p class="pillar-question">"Is this <em>claim</em> true?"</p>
+          <p>Every claim an agent makes must cite the evidence it actually
+          retrieved, with a faithfulness check — or say "I don't know"
+          instead of guessing.</p>
+          <p class="pillar-source">Powers: a grounded classifier for pillar
+          1's cluster verdicts, built from a legal-AI citation-verification
+          pattern (60/60 tests passing in its source project).</p>
+        </article>
+
+        <article class="pillar">
+          <div class="pillar-head">
+            <span class="pillar-index">03</span>
+            <span class="status-badge status-roadmap">Roadmap</span>
+          </div>
+          <h3>Approval-gated execution</h3>
+          <p class="pillar-question">"Is this <em>action</em> authorized?"</p>
+          <p>Read-only investigation runs freely. Any write requires an
+          explicit human click, enforced by infrastructure — not a prompt
+          asking the model to behave.</p>
+          <p class="pillar-source">Pattern proven in an on-call incident
+          agent (69/69 tests passing in its source project); not yet
+          generalized into this platform.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="proof">
+    <div class="shell">
+      <h2>Proof, not promises</h2>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <div class="proof-number">3</div>
+          <div class="proof-label">real bugs found and fixed by actually
+          running pillar 1 on a live GitHub Actions run — a hardcoded branch
+          name, a cache collision, and an exit-code bug under <code>set -e</code>.</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-number">129</div>
+          <div class="proof-label">passing tests across the three source
+          prototypes (87 in the replay engine, 69 in the incident agent, 60
+          in the grounded-citation engine — some overlap counted once).</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-number">1</div>
+          <div class="proof-label">GitHub Action you can install today —
+          no infrastructure to stand up beyond a traffic capture you likely
+          already want for other reasons.</div>
+        </div>
+      </div>
+      <blockquote class="sample-output">
+        <div class="sample-label">Actual output from the live validation run</div>
+<pre><code>## Parity / behavioral diff
+
+Replayed <strong>1898</strong> requests. Fidelity: <strong>44%</strong> ⚠️ low confidence
+
+<strong>1 cluster(s)</strong> found (133 signal change(s), 133 absorbed as noise)
+
+[LOW] /stats/revenue — LIKELY_INTENDED (133 occurrences)
+  Changed paths: $.currency
+  Why LIKELY_INTENDED (55% confidence): only new fields were added
+  (low severity), consistent with an intentional additive change</code></pre>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="pricing">
+    <div class="shell">
+      <h2>Pricing direction</h2>
+      <p class="section-lede">Usage-based, not seat-based — you pay for what
+      gets verified, not for who's logged in. Final pricing not set; this is
+      the shape we're building toward.</p>
+      <div class="grid-3">
+        <div class="card price-card">
+          <div class="card-kicker">Start</div>
+          <h3 class="price">Free</h3>
+          <p>One repo, pillar 1 only. Install the Action, see what it finds.
+          No card required.</p>
+        </div>
+        <div class="card price-card price-card-featured">
+          <div class="card-kicker">Team</div>
+          <h3 class="price">Usage-based</h3>
+          <p>Per verified action across repos. Pillar 1 at scale, pillar 2's
+          grounded classifier once it ships.</p>
+        </div>
+        <div class="card price-card">
+          <div class="card-kicker">Enterprise</div>
+          <h3 class="price">Custom</h3>
+          <p>Audit trail, approval-gated execution (pillar 3), compliance
+          tier for regulated industries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band waitlist-band" id="waitlist">
+    <div class="shell waitlist-shell">
+      <h2>Request access</h2>
+      <p class="section-lede">
+        Pillar 1 is real and installable today. Tell us about your team and
+        we'll reach out — no mailing list spam, no sales deck.
+      </p>
+      <form class="waitlist-form" id="waitlist-form">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="context">What would you verify first?</label>
+          <textarea id="context" name="context" rows="3" placeholder="e.g. our Copilot-authored PRs, our nightly data pipeline retrains..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-wide" type="submit">Request access</button>
+        <p class="form-note" id="form-note">
+          This form has no backend wired up yet — submitting shows a
+          confirmation locally but doesn't send anywhere. Wire it to a real
+          endpoint (Formspree, a serverless function, etc.) before using this
+          site for real signups.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <div>© 2026 Parity Labs. Not a registered company yet — this is a product/pitch site for an idea in active development.</div>
+    <div class="footer-links">
+      <a href="https://github.com/Jex2l/parity" target="_blank" rel="noopener">parity engine</a>
+      <a href="../docs/pitch.md">pitch</a>
+      <a href="../docs/roadmap.md">roadmap</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
