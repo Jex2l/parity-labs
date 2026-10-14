@@ -21,19 +21,26 @@ hosted multi-repo version of `parity-webui` once there's a real
 customer asking for it (see `docs/limits.md` in the `parity` repo —
 auth was explicitly deferred, not forgotten).
 
-## Pillar 2 — grounded reasoning: in progress
+## Pillar 2 — grounded reasoning: shipped (as a port, in `parity`)
 
-- `pillar2-grounded-classifier/` (this repo) — a
-  `classify.Classifier`-compatible implementation that grounds its
-  verdict in retrieved evidence (the PR's actual diff hunks and the
-  cluster's actual changed-path data) instead of `classify.Heuristic`'s
-  pure structural rules.
-- Status as of this commit: the interface contract and a real,
-  testable evidence-retrieval + citation-check skeleton exist. No LLM
-  endpoint is wired in yet (same honest gap `parity`'s own
-  `internal/classify` package already documents for its heuristic
-  baseline) — see that directory's README for exactly what runs today
-  versus what's stubbed.
+- `pillar2-grounded-classifier/` (this repo) was the prototype. Its
+  logic now runs live in production as `internal/classify/grounded`
+  inside `jex2l/parity` — a reimplementation, not an import (Go's
+  package-visibility rules forbid importing `classify.Classifier`'s
+  interface types from outside that module), with one real improvement
+  made in the port: token-based field matching (case/underscore-
+  insensitive) instead of this prototype's exact-substring matching,
+  because the exact version would have missed most real Go APIs where
+  JSON tags and Go field names don't match literally.
+- Confirmed live on a real PR
+  (`jex2l/parity-client-test#6`): 80% confidence with a cited diff
+  line for a genuine field addition, vs. the structural heuristic's 55%
+  with no citation — and correctly falls back to the heuristic
+  (unchanged behavior) when a field can't be grounded in the diff.
+  Still no LLM endpoint wired in anywhere (same honest gap `parity`'s
+  own `internal/classify` package already documents for its heuristic
+  baseline) — today's grounding is deterministic text matching, not
+  semantic understanding.
 
 **Next for pillar 2:** wire a real model endpoint once one's available
 in a dev/eval environment; build the faithfulness check (reusing the

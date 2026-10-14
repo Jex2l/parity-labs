@@ -4,6 +4,23 @@ Pillar 2 of the Parity Labs platform (see `../docs/pitch.md` and
 `../docs/roadmap.md`): "is this claim true?" applied to pillar 1's
 cluster classifications.
 
+**Status update: wired into production, but as a port, not this code
+directly.** This package's logic now runs live in `jex2l/parity` as
+`internal/classify/grounded` — confirmed on a real PR
+(`jex2l/parity-client-test#6`): 80% confidence with a cited diff line
+for a genuine field addition, vs. the structural heuristic's 55% with
+no citation. It's a reimplementation, not an import of this code (see
+"Not wired into `parity` at all" below, which this update doesn't
+delete — the reasoning there is still exactly why a straight import was
+never possible). The production version also fixed a real gap this
+prototype had: its original field matching was exact-substring, which
+would have missed most real Go APIs (a JSON tag like `in_stock` rarely
+appears literally in Go source using the field name `InStock`) — the
+production version matches identifier tokens case/underscore-
+insensitively instead. That fix has not been backported to this
+standalone prototype; this file (below) still describes the original,
+narrower matching this specific code does.
+
 ## What's built
 
 `grounded.Classifier` — a real, tested classification engine that
